@@ -1,0 +1,1 @@
+{"name":"se.cambio::latest_age","version":"0.0.1","type":"AQL","q":"SELECT   a/data[at0001]/events[at0002]/data[at0003]/items[at0013]/value as T0_age FROM   EHR e[ehr_id/value=$ehr_id] CONTAINS COMPOSITION c CONTAINS (     OBSERVATION a[openEHR-EHR-OBSERVATION.basic_demographic.v1]   ) ORDER BY   c/context/start_time/value DESC LIMIT 1","query_parameters":{"ehr_id":""}}
