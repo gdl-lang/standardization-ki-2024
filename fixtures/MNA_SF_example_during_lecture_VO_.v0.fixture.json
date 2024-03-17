@@ -1,0 +1,6 @@
+guidelines:
+  "1": MNA_SF_example_during_lecture_VO_.v0
+test_cases:
+  - id: o1-default action
+    input: {}
+    expected_output: {}

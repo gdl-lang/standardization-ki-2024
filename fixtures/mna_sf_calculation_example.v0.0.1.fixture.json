@@ -1,0 +1,159 @@
+guidelines:
+  "1": mna_sf_calculation_example.v0.0.1
+test_cases:
+  - id: 01. No input
+    input:
+      "1": {}
+    expected_output:
+      "1": {}
+  - id: 02. pre_conditions - Age below 65 (negative test).
+    input:
+      "1":
+        gt0003|Age: 64,a
+    expected_output:
+      "1": {}
+  - id: 03. pre_conditions/default_actions - Age 65.
+    input:
+      "1":
+        gt0003|Age: 65,a
+    expected_output:
+      "1":
+        gt0019|Risk assessment: To view the assessment, please answer all mandatory
+          questions in the risk assessment form.
+  - id: 04. gt0024 - BMI below 19.
+    input:
+      "1":
+        gt0003|Age: 65,a
+        gt0005|Body mass index: 18.9,kg/m2
+    expected_output:
+      "1":
+        gt0015|BMI assessment: 0|local::at0025|Less than 19|
+        gt0019|Risk assessment: To view the assessment, please answer all mandatory
+          questions in the risk assessment form.
+  - id: 05. gt0025 - BMI 19.
+    input:
+      "1":
+        gt0003|Age: 65,a
+        gt0005|Body mass index: 19,kg/m2
+    expected_output:
+      "1":
+        gt0015|BMI assessment: 1|local::at0026|19 or less than 21|
+        gt0019|Risk assessment: To view the assessment, please answer all mandatory
+          questions in the risk assessment form.
+  - id: 06. gt0026 - BMI 21.
+    input:
+      "1":
+        gt0003|Age: 65,a
+        gt0005|Body mass index: 21,kg/m2
+    expected_output:
+      "1":
+        gt0015|BMI assessment: 2|local::at0027|21 or less than 23|
+        gt0019|Risk assessment: To view the assessment, please answer all mandatory
+          questions in the risk assessment form.
+  - id: 07. gt0027 - BMI 23.
+    input:
+      "1":
+        gt0003|Age: 65,a
+        gt0005|Body mass index: 23,kg/m2
+    expected_output:
+      "1":
+        gt0015|BMI assessment: 3|local::at0028|23 or greater|
+        gt0019|Risk assessment: To view the assessment, please answer all mandatory
+          questions in the risk assessment form.
+  - id: 08. gt0028 - CC less than 31.
+    input:
+      "1":
+        gt0003|Age: 65,a
+        gt0007|Circumference: 30.9,cm
+    expected_output:
+      "1":
+        gt0016|Calf circumference: 0|local::at0030|Less than 31 cm|
+        gt0019|Risk assessment: To view the assessment, please answer all mandatory
+          questions in the risk assessment form.
+  - id: 09. gt0029 - CC 31.
+    input:
+      "1":
+        gt0003|Age: 65,a
+        gt0007|Circumference: 31,cm
+    expected_output:
+      "1":
+        gt0016|Calf circumference: 3|local::at0031|31 cm or greater|
+        gt0019|Risk assessment: To view the assessment, please answer all mandatory
+          questions in the risk assessment form.
+  - id: 10. gt0027/gt0030/gt0034 - Max total score with BMI (14).
+    input:
+      "1":
+        gt0003|Age: 65,a
+        gt0005|Body mass index: 23,kg/m2
+        gt0009|Food intake: 2|local::at0007|No decrease in food intake|
+        gt0010|Weight loss: 3|local::at0012|No weight loss|
+        gt0011|Mobility: 2|local::at0016|Goes out|
+        gt0012|Psychological stress: 2|local::at0019|No|
+        gt0013|Neuropsychological problems: 2|local::at0023|No psychological problems|
+    expected_output:
+      "1":
+        gt0015|BMI assessment: 3|local::at0028|23 or greater|
+        gt0017|Total score: "14.0"
+        gt0019|Risk assessment: Normal nutritional status
+  - id: 11. gt0024/gt0030/gt0032 - Min total score with BMI (0).
+    input:
+      "1":
+        gt0003|Age: 65,a
+        gt0005|Body mass index: 18,kg/m2
+        gt0009|Food intake: 0|local::at0005|Severe decrease in food intake|
+        gt0010|Weight loss: 0|local::at0009|Weight loss > 3kg|
+        gt0011|Mobility: 0|local::at0014|Bed or chair bound|
+        gt0012|Psychological stress: 0|local::at0018|Yes|
+        gt0013|Neuropsychological problems: 0|local::at0021|Severe dementia or depression|
+    expected_output:
+      "1":
+        gt0015|BMI assessment: 0|local::at0025|Less than 19|
+        gt0017|Total score: "0.0"
+        gt0019|Risk assessment: Malnourished
+  - id: 12. gt0029/gt0031/gt0034 - Max total score with CC (14).
+    input:
+      "1":
+        gt0003|Age: 65,a
+        gt0007|Circumference: 31,cm
+        gt0009|Food intake: 2|local::at0007|No decrease in food intake|
+        gt0010|Weight loss: 3|local::at0012|No weight loss|
+        gt0011|Mobility: 2|local::at0016|Goes out|
+        gt0012|Psychological stress: 2|local::at0019|No|
+        gt0013|Neuropsychological problems: 2|local::at0023|No psychological problems|
+    expected_output:
+      "1":
+        gt0016|Calf circumference: 3|local::at0031|31 cm or greater|
+        gt0017|Total score: "14.0"
+        gt0019|Risk assessment: Normal nutritional status
+  - id: 13. gt0028/gt0031/gt0032 - Min total score with CC (0).
+    input:
+      "1":
+        gt0003|Age: 65,a
+        gt0007|Circumference: 30,cm
+        gt0009|Food intake: 0|local::at0005|Severe decrease in food intake|
+        gt0010|Weight loss: 0|local::at0009|Weight loss > 3kg|
+        gt0011|Mobility: 0|local::at0014|Bed or chair bound|
+        gt0012|Psychological stress: 0|local::at0018|Yes|
+        gt0013|Neuropsychological problems: 0|local::at0021|Severe dementia or depression|
+    expected_output:
+      "1":
+        gt0016|Calf circumference: 0|local::at0030|Less than 31 cm|
+        gt0017|Total score: "0.0"
+        gt0019|Risk assessment: Malnourished
+  - id: 14. gt0026/gt0028/gt0030/gt0033 - Score 9 with BMI and CC.
+    input:
+      "1":
+        gt0003|Age: 65,a
+        gt0005|Body mass index: 21,kg/m2
+        gt0007|Circumference: 30,cm
+        gt0009|Food intake: 1|local::at0006|Moderate decrease in food intake|
+        gt0010|Weight loss: 2|local::at0011|Weight loss > 1 and < 3 kg|
+        gt0011|Mobility: 1|local::at0015|Able to get out of bed/chair but does not go out|
+        gt0012|Psychological stress: 2|local::at0019|No|
+        gt0013|Neuropsychological problems: 1|local::at0022|Mild dementia|
+    expected_output:
+      "1":
+        gt0015|BMI assessment: 2|local::at0027|21 or less than 23|
+        gt0016|Calf circumference: 0|local::at0030|Less than 31 cm|
+        gt0017|Total score: "9.0"
+        gt0019|Risk assessment: At risk of malnutrition

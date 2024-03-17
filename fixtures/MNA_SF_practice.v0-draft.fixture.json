@@ -1,0 +1,10 @@
+guidelines:
+  "1": MNA_SF_practice.v0-draft
+test_cases:
+  - id: 01 - Test Age
+    input:
+      "1":
+        gt0003|Age: 65,a
+    expected_output:
+      "1":
+        gt0019|Risk assessment: Please answer all questions to see the result

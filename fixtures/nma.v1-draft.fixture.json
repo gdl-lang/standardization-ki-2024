@@ -1,0 +1,9 @@
+guidelines:
+  "1": nma.v1-draft
+test_cases:
+  - id: 01 -default teast
+    input:
+      "1":
+        gt0005|Age: 65,a
+    expected_output:
+      "1": {}
